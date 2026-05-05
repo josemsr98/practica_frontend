@@ -1,4 +1,19 @@
 <div class="login-container">
     <h2>Login</h2>
-    <!-- @TODO: Implement login form here -->
+    <form (ngSubmit)="onLogin()">
+        <div>
+            <label for="username">Usuario</label>
+            <input id="username" name="username" [(ngModel)]="username" type="text" required />
+        </div>
+        <div>
+            <label for="password">Contraseña</label>
+            <input id="password" name="password" [(ngModel)]="password" type="password" required />
+        </div>
+        <div>
+            <button type="submit">Login</button>
+        </div>
+        <div *ngIf="errorMessage" class="errorClass">
+            {{ errorMessage }}
+        </div>
+    </form>
 </div>

@@ -26,4 +26,19 @@ export class UserService {
     )
   }
 
+  async login(username: string, password: string): Promise<Usuario | null> {
+    // Simulación usando el mock de usuarios
+    const result = await to(
+      this.http.get<Usuario[]>('/assets/mocks/users.json').toPromise()
+    );
+    // Si hay error, 'result' será un array con el error
+    if (Array.isArray(result)) {
+      return null;
+    }
+    const usuario = result.find(
+      (u: Usuario) => u.nickUsuario === username && u.contrasena === password
+    );
+    return usuario || null;
+  }
+
 }
