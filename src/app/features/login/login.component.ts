@@ -3,13 +3,14 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import {UserService} from "../../core/services/user.service"
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   standalone: true,
-  imports: [FormsModule]
+  imports: [CommonModule, FormsModule]
 })
 export class LoginComponent {
   username: string = '';
@@ -26,6 +27,7 @@ export class LoginComponent {
     this.errorMessage = '';
     try {
       const result = await this.userService.login(this.username, this.password);
+      console.log('Login result:', result);
       if (result) {
         this.router.navigate(['/home']);
       } else {
@@ -33,6 +35,7 @@ export class LoginComponent {
       }
     } catch (error) {
       this.errorMessage = 'Error al intentar iniciar sesión';
+      console.error('Login error:', error);
     }
   }
   // Aquí se implementarán los métodos necesarios para el login
