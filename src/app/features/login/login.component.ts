@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import {UserService} from "../../core/services/user.service"
 import { CommonModule } from '@angular/common';
+import { guardarUsuarioLogado } from 'src/app/core/services/utils.service';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +30,9 @@ export class LoginComponent {
       const result = await this.userService.login(this.username, this.password);
       console.log('Login result:', result);
       if (result) {
-        this.router.navigate(['/home']);
+        // Guardar solo nickUsuario y contrasena para el login
+        guardarUsuarioLogado({ nickUsuario: this.username, contrasena: this.password } as any);
+        this.router.navigate(['/usuarios']);
       } else {
         this.errorMessage = 'Usuario o contraseña incorrectos';
       }

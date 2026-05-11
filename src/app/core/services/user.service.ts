@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../models/user.model';
-import to from "./utils.service";
+import to, { headers, loadCredentials } from "./utils.service";
 
 
 @Injectable({
@@ -19,28 +19,28 @@ export class UserService {
   }
 
   async obtenerUsuarios() {
+    const url = 'http://localhost:8080/usuarios';
     return await to(
       this.http
-        .get<Usuario>('/assets/mocks/user.json')
+        .get<Usuario[]>(url, {params:loadCredentials()})
         .toPromise()
     )
   }
 
-  async login(username: string, password: string): Promise<Usuario | null> {
+  async login(nickUsuario : string, contrasena: string): Promise<boolean> {
+    const params = { nickUsuario, contrasena };
     const result = await to(
-      this.http.get<Usuario[]>('/assets/mocks/users.json').toPromise()
+      this.http.get<boolean>(
+        'http://localhost:8080/usuarios/iniciarSesion',
+        { params }
+      ).toPromise()
     );
-    // Si es un error, la función 'to' devuelve un array con el error en la posición 0
     if (Array.isArray(result) && result.length === 1 && result[0] instanceof Error) {
-      console.error('Error al obtener usuarios:', result[0]);
-      return null;
+      console.error('Error al hacer login:', result[0]);
+      return false;
     }
-    // Si es un array de usuarios
-    console.log('Usuarios obtenidos:', result);
-    const usuario = (result as Usuario[]).find(
-      (u: Usuario) => u.nickUsuario === username && u.contrasena === password
-    );
-    return usuario || null;
+    return result as boolean;
   }
+  
 
 }
