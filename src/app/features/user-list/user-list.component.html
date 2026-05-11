@@ -15,9 +15,7 @@
         <th></th>
         <th>Género</th>
         <th>Usuario</th>
-        <th>Nombre</th>
-        <th>Primer Apellido</th>
-        <th>Segundo Apellido</th>
+        <th>Nombre completo</th>
         <th>Fecha creación</th>
         <th>Hora desayuno</th>
         <th>Puesto trabajo</th>
@@ -39,12 +37,8 @@
         </td>
         <!-- Nombre de usuario -->
         <td>{{ usuario.nickUsuario }}</td>
-        <!-- Nombre -->
-        <td>{{ usuario.nombre }}</td>
-        <!-- Primer Apellido -->
-        <td>{{ usuario.primerApellido }}</td>
-        <!-- Segundo Apellido -->
-        <td>{{ usuario.segundoApellido }}</td>
+        <!-- Nombre completo -->
+        <td>{{ usuario.segundoApellido }}, {{ usuario.primerApellido }} {{ usuario.nombre }}</td>
         <!-- Fecha y hora de creación -->
         <td>{{ usuario.fechaHoraCreacion | date:'yyyy-MM-dd HH:mm' }}</td>
         <!-- Hora del desayuno -->
