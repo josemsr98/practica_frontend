@@ -1,7 +1,3 @@
-
-
-
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../models/user.model';
@@ -14,12 +10,14 @@ import to, { headers, loadCredentials } from "./utils.service";
 export class UserService {
   constructor(private http: HttpClient) { }
 
-  async obtenerUsuarioPorId(id: number) {
+  async obtenerUsuarioPorId(id: number, nickUsuario: string, contrasena: string) {
+    const url = `http://localhost:8080/usuarios/${id}`;
+    const params = { nickUsuario, contrasena };
     return await to(
       this.http
-        .get<Usuario>('/assets/mocks/user.json')
+        .get<any>(url, { params })
         .toPromise()
-    )
+    );
   }
 
   async obtenerUsuarios() {
