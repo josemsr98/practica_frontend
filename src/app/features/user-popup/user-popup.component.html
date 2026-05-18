@@ -1,11 +1,94 @@
-<!--<div class="dialog-overlay" (click)="onCancel()"></div>-->
 <div class="dialog-overlay"></div>
-<div class="dialog-box">
-    <div class="dialog-title">
-        <h2>Pop Up</h2>
-    </div>
+<div class="dialog-box user-popup-box">
+    <form #userForm="ngForm" (ngSubmit)="onSave()" class="user-form">
+        <div class="popup-header-row">
+            <h2 class="popup-title">{{ modo === 'update' ? 'Actualizar Usuario' : 'Crear Usuario' }}</h2>
+            <div class="popup-date-group">
+                <label for="fechaCreacion">Fecha de creación</label>
+                <input id="fechaCreacion" name="fechaCreacion" type="text" [value]="usuario.fechaHoraCreacion || 'Auto'" readonly />
+            </div>
+        </div>
+        <div class="popup-fields-grid">
+            <div class="form-group">
+                <label for="nickUsuario">Usuario</label>
+                <input id="nickUsuario" name="nickUsuario" [(ngModel)]="usuario.nickUsuario" required />
+            </div>
+            <div class="form-group">
+                <label for="contrasena">Contraseña</label>
+                <input id="contrasena" name="contrasena" type="password" [(ngModel)]="usuario.contrasena" required />
+            </div>
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input id="nombre" name="nombre" [(ngModel)]="usuario.nombre" required />
+            </div>
+            <div class="form-group">
+                <label for="primerApellido">Primer Apellido</label>
+                <input id="primerApellido" name="primerApellido" [(ngModel)]="usuario.primerApellido" required />
+            </div>
+            <div class="form-group">
+                <label for="segundoApellido">Segundo Apellido</label>
+                <input id="segundoApellido" name="segundoApellido" [(ngModel)]="usuario.segundoApellido" />
+            </div>
+            <div class="form-group">
+                <label for="fechaNacimiento">Fecha de nacimiento</label>
+                <input id="fechaNacimiento" name="fechaNacimiento" type="date" [(ngModel)]="usuario.fechaNacimiento" required />
+            </div>
+            <div class="form-group">
+                <label for="genero">Género</label>
+                <select id="genero" name="genero" [(ngModel)]="usuario.generoId" required>
+                    <option *ngFor="let genero of generos" [value]="genero.id">{{ genero.nombre }}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="puesto">Puesto de trabajo</label>
+                <select id="puesto" name="puesto" [(ngModel)]="usuario.puestoDeTrabajoId" required>
+                    <option *ngFor="let puesto of puestosDeTrabajo" [value]="puesto.id">{{ puesto.nombre }}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="horaDesayuno">Hora desayuno</label>
+                <input id="horaDesayuno" name="horaDesayuno" type="time" [(ngModel)]="usuario.horaDesayuno" required />
+            </div>
+        </div>
 
-    <button (click)="onSave()">Aceptar</button>
-    <button (click)="onCancel()">Cancelar</button>
-    <!-- @TODO: Implementar el contenido del pop up, así como los botones de acción (ej. Cancelar, Aceptar) -->
+        <div class="direcciones-section">
+            <label class="addresses-label">Direcciones</label>
+            <div class="container-button">
+                <button type="button" class="main-button" (click)="onAgregarDireccion()">Crear</button>
+                <button type="button" class="main-button" [disabled]="direccionSeleccionada == null" (click)="onActualizarDireccion()">Actualizar</button>
+                <button type="button" class="main-button" [disabled]="direccionSeleccionada == null" (click)="onEliminarDireccion()">
+                    <span class="main-button-icon">🗑️</span>
+                </button>
+            </div>
+            <div class="direcciones-table-container">
+                <table class="direcciones-table">
+                    <thead>
+                        <tr>
+                            <th>Principal</th>
+                            <th>Nombre de la calle</th>
+                            <th>Número</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let direccion of direcciones; let i = index">
+                            <td>
+                                <input type="radio" name="direccionPrincipal" [value]="i" [(ngModel)]="direccionPrincipal" />
+                            </td>
+                            <td>
+                                <input [(ngModel)]="direccion.nombreCalle" name="nombreCalle{{i}}" required />
+                            </td>
+                            <td>
+                                <input [(ngModel)]="direccion.numeroCalle" name="numeroCalle{{i}}" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="dialog-actions">
+            <button type="submit" class="main-button">Guardar</button>
+            <button type="button" class="main-button default-btn" (click)="onCancel()">Cancelar</button>
+        </div>
+    </form>
 </div>

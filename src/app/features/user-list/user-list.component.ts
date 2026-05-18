@@ -19,7 +19,9 @@ export class UserListComponent implements OnInit {
   public usuarioSeleccionado: any = null;
   public usuarioSeleccionadoId: any = null;
 
-  modoPopup: String = 'CLOSED';
+  modoPopup: 'CLOSED' | 'LAUNCH' | 'EDIT' | 'CONFIRM_DELETE' = 'CLOSED';
+  usuarioParaEditar: any = null;
+  mostrarConfirmacionEliminar: boolean = false;
 
   constructor(private router: Router, private userService: UserService) {
     this.userService = userService;
@@ -40,26 +42,51 @@ export class UserListComponent implements OnInit {
   }
 
 
-  onCerrarPopUpOk() {
+
+  onPopupCancel() {
     this.modoPopup = 'CLOSED';
+    this.usuarioParaEditar = null;
   }
 
-  onCerrarPopUpCancel() {
+  onPopupSave(event: any) {
+    // Aquí puedes refrescar la lista si es necesario
     this.modoPopup = 'CLOSED';
+    this.usuarioParaEditar = null;
+    this.ngOnInit();
   }
 
-  launchPopup() {
-
+  onCrearUsuario() {
     this.modoPopup = 'LAUNCH';
+    this.usuarioParaEditar = null;
   }
 
   // @TODO: Implementar propiedades, atributos, métodos... necesarios para el funcionamiento del listado de usuarios
   onLogout() {
     this.router.navigate(['/login']);
   }
-  onCrearUsuario() { }
-  onActualizarUsuario() { }
-  onEliminarUsuario() { }
+  // ...existing code...
+  onActualizarUsuario() {
+    if (this.usuarioSeleccionado) {
+      this.usuarioParaEditar = this.usuarioSeleccionado;
+      this.modoPopup = 'EDIT';
+    }
+  }
+  onEliminarUsuario() {
+    if (this.usuarioSeleccionado) {
+      this.mostrarConfirmacionEliminar = true;
+    }
+  }
+
+  onCancelarEliminar() {
+    this.mostrarConfirmacionEliminar = false;
+  }
+
+  async onConfirmarEliminar() {
+    if (!this.usuarioSeleccionado) return;
+    await this.userService.eliminarUsuario(this.usuarioSeleccionado.id);
+    this.mostrarConfirmacionEliminar = false;
+    await this.ngOnInit();
+  }
   getDireccionPrincipal(usuario: any): string {
     const dir = usuario.direcciones?.find((d: any) => d.direccionPrincipal);
     if (!dir) return '';

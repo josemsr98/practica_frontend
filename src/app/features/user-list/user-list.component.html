@@ -1,3 +1,14 @@
+<!-- Popup de confirmación de eliminación -->
+<div class="dialog-overlay" *ngIf="mostrarConfirmacionEliminar"></div>
+<div class="dialog-box confirm-delete-box" *ngIf="mostrarConfirmacionEliminar">
+  <div class="confirm-delete-content">
+    <h2>¿Estás seguro de que deseas eliminar el usuario seleccionado?</h2>
+    <div class="confirm-delete-actions">
+      <button class="main-button" (click)="onCancelarEliminar()">Cancelar</button>
+      <button class="main-button danger" (click)="onConfirmarEliminar()">Sí</button>
+    </div>
+  </div>
+</div>
 <div class="user-list-header">
   <button (click)="onLogout()">Logout</button>
 </div>
@@ -7,6 +18,22 @@
   <button [disabled]="!usuarioSeleccionado" (click)="onActualizarUsuario()">Actualizar usuario</button>
   <button [disabled]="!usuarioSeleccionado" (click)="onEliminarUsuario()">Eliminar usuario</button>
 </div>
+
+
+<!-- Popup para crear usuario -->
+<app-user-popup *ngIf="modoPopup === 'LAUNCH'"
+  (cerrarPopUpCancel)="onPopupCancel()"
+  (cerrarPopUpOk)="onPopupSave($event)"
+  [modo]="'create'">
+</app-user-popup>
+
+<!-- Popup para editar usuario -->
+<app-user-popup *ngIf="modoPopup === 'EDIT'"
+  [usuarioEditar]="usuarioParaEditar"
+  [modo]="'update'"
+  (cerrarPopUpCancel)="onPopupCancel()"
+  (cerrarPopUpOk)="onPopupSave($event)">
+</app-user-popup>
 
 <div class="user-list-table-container">
   <table>

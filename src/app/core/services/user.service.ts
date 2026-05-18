@@ -1,3 +1,7 @@
+
+
+
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../models/user.model';
@@ -41,6 +45,47 @@ export class UserService {
     }
     return result as boolean;
   }
+    async crearUsuario(usuario: Usuario) {
+    const url = 'http://localhost:8080/usuarios';
+    return await to(
+      this.http
+        .post<Usuario>(url, usuario, { params: loadCredentials(), headers })
+        .toPromise()
+    );
+  }
+    async crearDireccion(direccion: any) {
+    const url = 'http://localhost:8080/direcciones/crear';
+    return await to(
+      this.http
+        .post<any>(url, direccion, { params: loadCredentials(), headers })
+        .toPromise()
+    );
+  }
   
+  async actualizarUsuario(id: number, usuario: Usuario) {
+    const url = `http://localhost:8080/usuarios/${id}`;
+    return await to(
+      this.http
+        .put<Usuario>(url, usuario, { params: loadCredentials(), headers })
+        .toPromise()
+    );
+  }
+
+  async actualizarDireccion(id: number, direccion: any) {
+    const url = `http://localhost:8080/direcciones/actualizar/${id}`;
+    return await to(
+      this.http
+        .put<any>(url, direccion, { params: loadCredentials(), headers })
+        .toPromise()
+    );
+  }
+    async eliminarUsuario(id: number) {
+    const url = `http://localhost:8080/usuarios/${id}`;
+    return await to(
+      this.http
+        .delete(url, { params: loadCredentials(), headers })
+        .toPromise()
+    );
+  }
 
 }
