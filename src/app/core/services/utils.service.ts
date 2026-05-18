@@ -48,3 +48,4 @@ export function guardarUsuarioLogado(usuario: Usuario) {
 export function obtenerUsuarioLogado(): Usuario {
     return JSON.parse(localStorage.getItem(ConstLocalStorage.USUARIO_LOGADO_STORAGE));
 }
+

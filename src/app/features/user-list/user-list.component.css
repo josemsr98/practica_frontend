@@ -1,3 +1,32 @@
+.confirm-delete-box {
+  min-width: 350px;
+  max-width: 90vw;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+.confirm-delete-content h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+.confirm-delete-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.main-button.danger {
+  background: #e51400;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.main-button.danger:hover {
+  background: #b01000;
+}
 .user-list-container {
   max-width: 600px;
   margin: 30px auto;

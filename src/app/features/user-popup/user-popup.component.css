@@ -7,16 +7,146 @@
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
 }
-.dialog-box {
+.dialog-box.user-popup-box {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: white;
-    padding: 2rem;
+    padding: 1.5rem 2.5rem 1.5rem 2.5rem;
     z-index: 1000;
     border-radius: 8px;
-    min-width: 500px;
+    min-width: 700px;
+    max-width: 900px;
+    box-shadow: 0 2px 16px 0 rgba(0,0,0,0.18);
+}
+
+.popup-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 1.2rem;
+}
+.popup-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 0;
+}
+.popup-date-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 0.95rem;
+}
+.popup-date-group label {
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+}
+.popup-date-group input {
+    background: #f3f3f3;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 0.2rem 0.5rem;
+    width: 170px;
+    font-size: 1rem;
+}
+
+.popup-fields-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.1rem 1.5rem;
+    margin-bottom: 1.2rem;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.2rem;
+}
+.form-group label {
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+}
+.form-group input, .form-group select {
+    padding: 0.3rem 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 1rem;
+}
+
+.addresses-label {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.direcciones-section {
+    margin-top: 1.2rem;
+    margin-bottom: 1.2rem;
+}
+.direcciones-table-container {
+    max-height: 160px;
+    overflow-y: auto;
+    border-radius: 4px;
+    border: 1px solid #e51400;
+    margin-bottom: 0.7rem;
+}
+.direcciones-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.direcciones-table th {
+    background-color: #e51400;
+    color: #fff;
+    font-weight: 600;
+    padding: .3rem;
+    text-align: center;
+}
+.direcciones-table td {
+    text-align: center;
+    color: #000;
+    padding: .3rem;
+    background: #f7cecc;
+}
+.direcciones-table tr:nth-child(even) td {
+    background: #fff0f0;
+}
+.container-button {
+    display: flex;
+    gap: 10px;
+    margin-bottom: .8rem;
+}
+.main-button, .main-button-icon {
+    width: auto;
+    height: 40px;
+    padding: .4rem .6rem;
+    border: none;
+    background-color: #3c8bcb;
+    cursor: pointer;
+    border-radius: .2rem;
+    color: #fff;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.main-button-icon {
+    background: none;
+    color: #fff;
+    font-size: 1.3rem;
+    padding: 0;
+    height: auto;
+}
+.default-btn {
+    background-color: #fefefe;
+    color: #000;
+    border: 1px solid #e5e5e5;
+}
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.2rem;
 }
 .errorClass {
     color: red;
