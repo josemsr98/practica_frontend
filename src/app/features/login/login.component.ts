@@ -2,6 +2,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import {UserService} from "../../core/services/user.service"
 
 @Component({
@@ -9,7 +10,7 @@ import {UserService} from "../../core/services/user.service"
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   standalone: true,
-  imports: [FormsModule]
+  imports: [CommonModule, FormsModule]
 })
 export class LoginComponent {
   username: string = '';
