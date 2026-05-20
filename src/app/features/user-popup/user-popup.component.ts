@@ -29,21 +29,29 @@ export class UserPopupComponent implements OnInit {
         contrasena: '',
         admin: false
     };
-    generos: any[] = [
-        { id: 1, nombre: 'Masculino' },
-        { id: 2, nombre: 'Femenino' }
-    ];
-    puestosDeTrabajo: any[] = [
-        { id: 1, nombre: 'Desarrollador' },
-        { id: 2, nombre: 'Diseñador' }
-    ];
+    generos: any[] = [];
+    puestosDeTrabajo: any[] = [];
     direcciones: any[] = [];
     direccionSeleccionada: number | null = null;
     direccionPrincipal: number | null = null;
 
     constructor(private userService: UserService) {}
 
-    ngOnInit() {
+    async ngOnInit() {
+        // Cargar puestos de trabajo dinámicamente
+        const puestos = await this.userService.obtenerPuestosDeTrabajo();
+        if (Array.isArray(puestos)) {
+            this.puestosDeTrabajo = puestos;
+        } else if (puestos && Array.isArray(puestos[0])) {
+            this.puestosDeTrabajo = puestos[0];
+        }
+        // Cargar géneros dinámicamente
+        const generos = await this.userService.obtenerGeneros();
+        if (Array.isArray(generos)) {
+            this.generos = generos;
+        } else if (generos && Array.isArray(generos[0])) {
+            this.generos = generos[0];
+        }
         if (this.modo === 'update' && this.usuarioEditar) {
             this.cargarUsuario(this.usuarioEditar);
         }

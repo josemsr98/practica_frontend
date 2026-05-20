@@ -1,3 +1,5 @@
+
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../models/user.model';
@@ -85,5 +87,18 @@ export class UserService {
         .toPromise()
     );
   }
-
+  async obtenerPuestosDeTrabajo() {
+    // Si tienes backend, cambia la URL por la del endpoint real
+    const url = 'http://localhost:8080/puestos-de-trabajo';
+    return await to(
+      this.http.get<any[]>(url).toPromise()
+    );
+  }
+    async obtenerGeneros() {
+    // Si tienes backend, cambia la URL por la del endpoint real
+    const url = 'http://localhost:8080/generos?nickUsuario=&contrasena=';
+    return await to(
+      this.http.get<any[]>(url).toPromise()
+    );
+  }
 }

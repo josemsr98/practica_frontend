@@ -1,0 +1,6 @@
+[
+  { "id": 1, "nombre": "Desarrollador" },
+  { "id": 2, "nombre": "Diseñador" },
+  { "id": 3, "nombre": "Administrador" },
+  { "id": 4, "nombre": "Soporte" }
+]
