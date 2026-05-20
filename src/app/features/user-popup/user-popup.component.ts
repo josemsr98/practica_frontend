@@ -35,9 +35,42 @@ export class UserPopupComponent implements OnInit {
     direccionSeleccionada: number | null = null;
     direccionPrincipal: number | null = null;
 
+    usuarios: Usuario[] = [];
+
+    // Valida si el nick de usuario ya existe en la lista (excepto si es el mismo en modo update)
+    /**
+     * Valida si el nombre de usuario (nick) ya está repetido en la lista de usuarios.
+     * 
+     * @param nick El nombre de usuario a comprobar.
+     * @returns true si el nick ya existe en otro usuario, false si es único o si es el mismo usuario en edición.
+     * 
+     * Lógica:
+     * 1. Si el campo está vacío, no hay nada que validar, retorna false (no hay repetido).
+     * 2. Si estamos editando un usuario y el nick no ha cambiado (es el mismo que el original),
+     *    no se considera repetido, así permitimos que el usuario mantenga su propio nick.
+     * 3. Si no, busca en la lista de usuarios si existe algún usuario con ese nick.
+     *    Si lo encuentra, retorna true (está repetido), si no, retorna false.
+     */
+    esNickRepetido(nick: string): boolean {
+        // 1. Si el nick está vacío, no hay nada que validar
+        if (!nick) return false;
+
+        // 2. Si estamos editando y el nick no ha cambiado, no es repetido
+        if (this.modo === 'update' && this.usuarioEditar && this.usuarioEditar.nickUsuario === nick) {
+            return false;
+        }
+
+        // 3. Busca si existe algún usuario con ese nick
+        return this.usuarios.some(u => u.nickUsuario === nick);
+    }
+
     constructor(private userService: UserService) {}
+    
 
     async ngOnInit() {
+        this.userService.obtenerUsuarios().then((usuarios) => {
+            this.usuarios = usuarios;
+        });
         // Cargar puestos de trabajo dinámicamente
         const puestos = await this.userService.obtenerPuestosDeTrabajo();
         if (Array.isArray(puestos)) {
