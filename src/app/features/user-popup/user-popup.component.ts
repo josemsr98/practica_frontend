@@ -207,4 +207,14 @@ export class UserPopupComponent implements OnInit {
     onCancel() {
         this.cerrarPopUpCancel.emit();
     }
+    horaDesayunoValida(): boolean {
+        if (!this.usuario.horaDesayuno) return false;
+        // Formato esperado: 'HH:mm'
+        const [h, m] = this.usuario.horaDesayuno.split(":").map(Number);
+        if (isNaN(h) || isNaN(m)) return false;
+        const minutos = h * 60 + m;
+        const min = 7 * 60;   // 07:00
+        const max = 12 * 60;  // 12:00
+        return minutos >= min && minutos <= max;
+    }
 }
