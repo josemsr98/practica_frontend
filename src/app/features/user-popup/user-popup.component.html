@@ -57,6 +57,9 @@
             <div class="form-group">
                 <label for="horaDesayuno">Hora desayuno</label>
                 <input id="horaDesayuno" name="horaDesayuno" type="time" [(ngModel)]="usuario.horaDesayuno" required />
+                <div *ngIf="usuario.horaDesayuno && !horaDesayunoValida()" style="color: red; font-size: 0.9em;">
+                    La hora debe estar entre 07:00 y 12:00.
+                </div>
             </div>
         </div>
 
@@ -97,8 +100,8 @@
 
         <div class="dialog-actions">
             <button type="submit" class="main-button" 
-                [disabled]="esNickRepetido(usuario.nickUsuario) || userForm.invalid || contrasenaField.invalid">
-                Guardar
+                [disabled]="esNickRepetido(usuario.nickUsuario) || userForm.invalid || contrasenaField.invalid || !horaDesayunoValida()">
+                {{ modo === 'update' ? 'Actualizar' : 'Guardar' }}
             </button>
             <button type="button" class="main-button default-btn" (click)="onCancel()">Cancelar</button>
         </div>
