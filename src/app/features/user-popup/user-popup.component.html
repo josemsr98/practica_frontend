@@ -11,7 +11,13 @@
         <div class="popup-fields-grid">
                         <div class="form-group">
                                 <label for="nickUsuario">Usuario</label>
-                                <input id="nickUsuario" name="nickUsuario" [(ngModel)]="usuario.nickUsuario" required />
+                                <input id="nickUsuario" name="nickUsuario" [(ngModel)]="usuario.nickUsuario" required minlength="3" #nickUsuarioField="ngModel" />
+                                <div *ngIf="nickUsuarioField.errors?.required && (nickUsuarioField.dirty || nickUsuarioField.touched)" style="color: red; font-size: 0.9em;">
+                                    El nombre de usuario es obligatorio.
+                                </div>
+                                <div *ngIf="nickUsuarioField.errors?.minlength && (nickUsuarioField.dirty || nickUsuarioField.touched)" style="color: red; font-size: 0.9em;">
+                                    El nombre de usuario debe tener al menos 3 caracteres.
+                                </div>
                                 <div *ngIf="esNickRepetido(usuario.nickUsuario) && usuario.nickUsuario" class="error-msg" style="color: red; font-size: 0.9em;">
                                     El nombre de usuario ya está en uso.
                                 </div>
@@ -22,17 +28,26 @@
                     #contrasenaField="ngModel"
                     pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$"
                     minlength="6" />
-                <div *ngIf="contrasenaField.invalid && (contrasenaField.dirty || contrasenaField.touched)" style="color: red; font-size: 0.9em;">
+                <div *ngIf="contrasenaField.errors?.required && (contrasenaField.dirty || contrasenaField.touched)" style="color: red; font-size: 0.9em;">
+                    La contraseña es obligatoria.
+                </div>
+                <div *ngIf="contrasenaField.errors?.pattern && (contrasenaField.dirty || contrasenaField.touched)" style="color: red; font-size: 0.9em;">
                     La contraseña debe tener al menos 6 caracteres, una mayúscula, una minúscula y un número.
                 </div>
             </div>
             <div class="form-group">
                 <label for="nombre">Nombre</label>
-                <input id="nombre" name="nombre" [(ngModel)]="usuario.nombre" required />
+                <input id="nombre" name="nombre" [(ngModel)]="usuario.nombre" required #nombreField="ngModel" />
+                <div *ngIf="nombreField.invalid && (nombreField.dirty || nombreField.touched)" style="color: red; font-size: 0.9em;">
+                    El nombre es obligatorio.
+                </div>
             </div>
             <div class="form-group">
                 <label for="primerApellido">Primer Apellido</label>
-                <input id="primerApellido" name="primerApellido" [(ngModel)]="usuario.primerApellido" required />
+                <input id="primerApellido" name="primerApellido" [(ngModel)]="usuario.primerApellido" required #primerApellidoField="ngModel" />
+                <div *ngIf="primerApellidoField.invalid && (primerApellidoField.dirty || primerApellidoField.touched)" style="color: red; font-size: 0.9em;">
+                    El primer apellido es obligatorio.
+                </div>
             </div>
             <div class="form-group">
                 <label for="segundoApellido">Segundo Apellido</label>
@@ -40,18 +55,27 @@
             </div>
             <div class="form-group">
                 <label for="fechaNacimiento">Fecha de nacimiento</label>
-                <input id="fechaNacimiento" name="fechaNacimiento" type="date" [(ngModel)]="usuario.fechaNacimiento" required />
+                <input id="fechaNacimiento" name="fechaNacimiento" type="date" [(ngModel)]="usuario.fechaNacimiento" required #fechaNacimientoField="ngModel" />
+                <div *ngIf="fechaNacimientoField.invalid && (fechaNacimientoField.dirty || fechaNacimientoField.touched)" style="color: red; font-size: 0.9em;">
+                    La fecha de nacimiento es obligatoria.
+                </div>
             </div>
             <div class="form-group">
                 <label for="genero">Género</label>
-                <select id="genero" name="genero" [(ngModel)]="usuario.generoId" required>
+                <select id="genero" name="genero" [(ngModel)]="usuario.generoId" required #generoField="ngModel">
                     <option *ngFor="let genero of generos" [value]="genero.id">{{ genero.nombre }}</option>
+                                <div *ngIf="generoField.invalid && (generoField.dirty || generoField.touched)" style="color: red; font-size: 0.9em;">
+                                    El género es obligatorio.
+                                </div>
                 </select>
             </div>
             <div class="form-group">
                 <label for="puesto">Puesto de trabajo</label>
-                <select id="puesto" name="puesto" [(ngModel)]="usuario.puestoDeTrabajoId" required>
+                <select id="puesto" name="puesto" [(ngModel)]="usuario.puestoDeTrabajoId" required #puestoField="ngModel">
                     <option *ngFor="let puesto of puestosDeTrabajo" [value]="puesto.id">{{ puesto.nombre }}</option>
+                                <div *ngIf="puestoField.invalid && (puestoField.dirty || puestoField.touched)" style="color: red; font-size: 0.9em;">
+                                    El puesto de trabajo es obligatorio.
+                                </div>
                 </select>
             </div>
             <div class="form-group">
