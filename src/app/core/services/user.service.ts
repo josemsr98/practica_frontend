@@ -1,5 +1,8 @@
 
 
+
+
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../models/user.model';
@@ -99,6 +102,30 @@ export class UserService {
     const url = 'http://localhost:8080/generos?nickUsuario=&contrasena=';
     return await to(
       this.http.get<any[]>(url).toPromise()
+    );
+  }
+    async crearGenero(genero: any) {
+    const url = 'http://localhost:8080/generos?nickUsuario=&contrasena=';
+    return await to(
+      this.http
+        .post<any>(url, genero, { params: loadCredentials(), headers })
+        .toPromise()
+    );
+  }
+    async actualizarGenero(id: number, genero: any) {
+    const url = `http://localhost:8080/generos/${id}?nickUsuario=&contrasena=`;
+    return await to(
+      this.http
+        .put<any>(url, genero, { params: loadCredentials(), headers })
+        .toPromise()
+    );
+  }
+    async eliminarGenero(id: number) {
+    const url = `http://localhost:8080/generos/${id}`;
+    return await to(
+      this.http
+        .delete<any>(url, { params: loadCredentials(), headers })
+        .toPromise()
     );
   }
 }

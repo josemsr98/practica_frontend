@@ -1,0 +1,31 @@
+.dialog-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+.dialog-box.genero-popup-box {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  z-index: 1001;
+  min-width: 320px;
+}
+.genero-list ul {
+  list-style: none;
+  padding: 0;
+}
+.genero-list li {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nuevo-genero {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+}

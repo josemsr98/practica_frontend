@@ -1,3 +1,4 @@
+import { GeneroPopupComponent } from './features/genero-popup/genero-popup.component';
 import { Component } from '@angular/core';
 import {RouterOutlet} from "@angular/router";
 import { obtenerUsuarioLogado } from './core/services/utils.service';
@@ -8,7 +9,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: "./app.component.html",
   imports: [
     CommonModule,
-    RouterOutlet
+    RouterOutlet,
+    GeneroPopupComponent
   ],
   standalone: true,
 
@@ -16,8 +18,17 @@ import { CommonModule } from '@angular/common';
 
 export class AppComponent {
   usuarioLogado: any = null;
+  mostrarPopupGenero = false;
 
   constructor() {
     this.usuarioLogado = obtenerUsuarioLogado();
+  }
+
+  abrirPopupGenero() {
+    this.mostrarPopupGenero = true;
+  }
+
+  cerrarPopupGenero() {
+    this.mostrarPopupGenero = false;
   }
 }
