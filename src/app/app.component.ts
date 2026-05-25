@@ -1,6 +1,7 @@
 import { GeneroPopupComponent } from './features/genero-popup/genero-popup.component';
+import { PuestoPopupComponent } from './features/puesto-popup/puesto-popup.component';
 import { Component } from '@angular/core';
-import {RouterOutlet} from "@angular/router";
+import {RouterOutlet, Router} from "@angular/router";
 import { obtenerUsuarioLogado } from './core/services/utils.service';
 import { CommonModule } from '@angular/common';
 @Component({
@@ -10,7 +11,8 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule,
     RouterOutlet,
-    GeneroPopupComponent
+    GeneroPopupComponent,
+    PuestoPopupComponent
   ],
   standalone: true,
 
@@ -19,16 +21,29 @@ import { CommonModule } from '@angular/common';
 export class AppComponent {
   usuarioLogado: any = null;
   mostrarPopupGenero = false;
+  mostrarPopupPuesto = false;
 
-  constructor() {
+
+  constructor(private router: Router) {
     this.usuarioLogado = obtenerUsuarioLogado();
+  }
+
+  get mostrarGestion(): boolean {
+    // Solo muestra si hay usuario logueado y no está en la ruta de login
+    return !!this.usuarioLogado && !this.router.url.includes('login');
   }
 
   abrirPopupGenero() {
     this.mostrarPopupGenero = true;
   }
-
   cerrarPopupGenero() {
     this.mostrarPopupGenero = false;
+  }
+
+  abrirPopupPuesto() {
+    this.mostrarPopupPuesto = true;
+  }
+  cerrarPopupPuesto() {
+    this.mostrarPopupPuesto = false;
   }
 }

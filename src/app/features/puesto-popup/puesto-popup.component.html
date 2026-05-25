@@ -1,0 +1,20 @@
+<div class="dialog-overlay"></div>
+<div class="dialog-box puesto-popup-box">
+  <h3>Gestionar Puestos de Trabajo</h3>
+  <div class="puesto-list">
+    <ul>
+      <li *ngFor="let puesto of puestos; let i = index">
+        <span *ngIf="editIndex !== i">{{ puesto.nombre }}</span>
+        <input *ngIf="editIndex === i" [(ngModel)]="puestoEditado" />
+        <button *ngIf="editIndex !== i" (click)="editarPuesto(i)">Editar</button>
+        <button *ngIf="editIndex === i" (click)="guardarEdicion()">Guardar</button>
+        <button (click)="eliminarPuesto(i)">Eliminar</button>
+      </li>
+    </ul>
+  </div>
+  <div class="nuevo-puesto">
+    <input [(ngModel)]="nuevoPuesto" placeholder="Nuevo puesto" />
+    <button (click)="agregarPuesto()">Agregar</button>
+  </div>
+  <button (click)="cerrarPopup()">Cerrar</button>
+</div>

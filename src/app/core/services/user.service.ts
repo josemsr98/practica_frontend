@@ -3,6 +3,7 @@
 
 
 
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../models/user.model';
@@ -122,6 +123,32 @@ export class UserService {
   }
     async eliminarGenero(id: number) {
     const url = `http://localhost:8080/generos/${id}`;
+    return await to(
+      this.http
+        .delete<any>(url, { params: loadCredentials(), headers })
+        .toPromise()
+    );
+  }
+    async crearPuesto(puesto: any) {
+    const url = 'http://localhost:8080/puestos-de-trabajo';
+    return await to(
+      this.http
+        .post<any>(url, puesto, { params: loadCredentials(), headers })
+        .toPromise()
+    );
+  }
+
+  async actualizarPuesto(id: number, puesto: any) {
+    const url = `http://localhost:8080/puestos-de-trabajo/${id}`;
+    return await to(
+      this.http
+        .put<any>(url, puesto, { params: loadCredentials(), headers })
+        .toPromise()
+    );
+  }
+
+  async eliminarPuesto(id: number) {
+    const url = `http://localhost:8080/puestos-de-trabajo/${id}`;
     return await to(
       this.http
         .delete<any>(url, { params: loadCredentials(), headers })

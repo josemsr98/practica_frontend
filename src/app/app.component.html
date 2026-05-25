@@ -4,8 +4,12 @@
         <div *ngIf="usuarioLogado as user" class="usuario-logado-header" style="margin-bottom: 16px; font-weight: bold;">
             Bienvenido, {{ user.nickUsuario }}
         </div>
-        <button (click)="abrirPopupGenero()" style="margin-bottom: 16px;">Gestionar géneros</button>
-        <genero-popup *ngIf="mostrarPopupGenero" (cerrar)="cerrarPopupGenero()"></genero-popup>
+        <ng-container *ngIf="mostrarGestion">
+            <button (click)="abrirPopupGenero()" style="margin-bottom: 8px;">Gestionar géneros</button>
+            <button (click)="abrirPopupPuesto()" style="margin-bottom: 16px; margin-left: 8px;">Gestionar puestos de trabajo</button>
+            <genero-popup *ngIf="mostrarPopupGenero" (cerrar)="cerrarPopupGenero()"></genero-popup>
+            <puesto-popup *ngIf="mostrarPopupPuesto" (cerrar)="cerrarPopupPuesto()"></puesto-popup>
+        </ng-container>
         <router-outlet></router-outlet>
     </div>
 </div>
